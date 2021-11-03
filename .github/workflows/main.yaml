@@ -16,10 +16,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Set up JDK 15
+      - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
-          java-version: 15
+          java-version: 11
       - name: Set up cache
         uses: actions/cache@v1
         with:
@@ -50,11 +50,18 @@ jobs:
           CLUSTER: dev-fss
           RESOURCE: .nais/nais-dev.yaml
           VAR: version=${{ env.IMAGE_TAG }}
-      - name: Create release
-        uses: actions/create-release@v1
+
+  deploy-prod:
+    name: Deploy application to prod
+    needs: test-build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Deploy application
+        uses: nais/deploy/actions/deploy@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: release/dev@${{ env.IMAGE_TAG }}
-          release_name: Release to dev
-          prerelease: true
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-fss
+          RESOURCE: .nais/nais-prod.yaml
+          VAR: version=${{ env.IMAGE_TAG }}
