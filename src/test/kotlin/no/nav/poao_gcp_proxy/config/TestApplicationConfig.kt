@@ -2,19 +2,17 @@ package no.nav.poao_gcp_proxy.config
 
 import no.nav.poao_gcp_proxy.proxy_filter.PreRequestZuulFilter
 import no.nav.poao_gcp_proxy.token_provider.ScopedTokenProvider
-import no.nav.security.token.support.spring.api.EnableJwtTokenValidation
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 
-@Profile("local")
+@Profile("test")
 @Configuration
 @EnableZuulProxy
-@EnableJwtTokenValidation
 @EnableConfigurationProperties(ProxyConfig::class)
-class LocalApplicationConfig {
+class TestApplicationConfig {
 
 	@Bean
 	fun scopedTokenProvider(): ScopedTokenProvider {
