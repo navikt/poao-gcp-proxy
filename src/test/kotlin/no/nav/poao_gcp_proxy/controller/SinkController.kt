@@ -1,5 +1,6 @@
 package no.nav.poao_gcp_proxy.controller
 
+import no.nav.security.token.support.core.api.Unprotected
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.servlet.http.HttpServletRequest
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/sink")
 class SinkController {
 
+	@Unprotected
 	@RequestMapping("/**")
 	fun test(httpRequest: HttpServletRequest): SinkResponse {
 		println("${httpRequest.method} ${httpRequest.requestURL}")
