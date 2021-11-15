@@ -40,3 +40,6 @@ spec:
         - application: amt-tiltak
           namespace: amt
           cluster: prod-gcp
+  env:
+    - name: NORG2_URL
+      value: https://app.adeo.no/norg2

@@ -9,6 +9,7 @@ data class ProxyConfig(
 
 data class ProxyTarget(
 	var appName: String = "",
-	var appNamespace: String = "",
-	var appCluster: String = "",
+	var appNamespace: String? = null,
+	var appCluster: String? = null,
+	var public: Boolean = false,
 )

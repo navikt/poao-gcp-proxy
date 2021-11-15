@@ -58,12 +58,17 @@ class PreRequestZuulFilter(
 		val proxy = proxyConfig.proxies.find { it.appName == appName }
 			?: throw ZuulException("Proxy Mapping Not Found", 404, "This endpoint is not a proxy")
 
-		// TODO: Basert på hvilket token som kommer inn, så burde vi lage nytt token å sende videre
-		//		F.eks TokenX, eller AzureAD OBO
+		if (!proxy.public) {
+			// TODO: Basert på hvilket token som kommer inn, så burde vi lage nytt token å sende videre
+			//		F.eks TokenX, eller AzureAD OBO
 
-		val token = scopedTokenProvider.getToken(createScope(proxy.appCluster, proxy.appNamespace, proxy.appName))
+			val cluster = proxy.appCluster ?: throw ZuulException("Internal server error", 500, "'appCluster' is missing from config")
+			val namespace = proxy.appNamespace ?: throw ZuulException("Internal server error", 500, "'appNamespace' is missing from config")
 
-		ctx.addZuulRequestHeader("Authorization", "Bearer $token")
+			val token = scopedTokenProvider.getToken(createScope(cluster, namespace, proxy.appName))
+
+			ctx.addZuulRequestHeader("Authorization", "Bearer $token")
+		}
 
 		return null
 	}

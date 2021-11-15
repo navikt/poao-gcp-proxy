@@ -24,7 +24,7 @@ class SinkController {
 	data class SinkResponse(
 		val method: String,
 		val url: String,
-		val authHeader: String
+		val authHeader: String?
 	)
 
 }

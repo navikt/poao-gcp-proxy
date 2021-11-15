@@ -8,8 +8,7 @@ import no.nav.security.mock.oauth2.MockOAuth2Server
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
@@ -67,6 +66,40 @@ class PreRequestZuulFilterTest {
 			assertEquals("GET", sinkResponse.method)
 			assertEquals("http://localhost:5678/sink/test/hello/world", sinkResponse.url)
 			assertEquals("Bearer SCOPED_TOKEN", sinkResponse.authHeader)
+		}
+	}
+
+	@Test
+	fun `should validate token for incoming requests to public proxy endpoints`() {
+		val request = Request.Builder()
+			.url("http://localhost:5678/proxy/public-app/test/hello/world")
+			.get()
+			.build()
+
+		client.newCall(request).execute().use { response ->
+			assertEquals(401, response.code)
+		}
+	}
+
+	@Test
+	fun `should not add auth header for public proxy`() {
+		val token = mockOAuth2Server.issueToken("azuread", "test", "test").serialize()
+
+		val request = Request.Builder()
+			.url("http://localhost:5678/proxy/public-app/test/hello/world")
+			.header("Authorization", "Bearer $token")
+			.get()
+			.build()
+
+		client.newCall(request).execute().use { response ->
+			assertTrue(response.isSuccessful)
+
+			val body = response.body?.string() ?: throw RuntimeException("Body is missing")
+			val sinkResponse = objectMapper.readValue(body, SinkController.SinkResponse::class.java)
+
+			assertEquals("GET", sinkResponse.method)
+			assertEquals("http://localhost:5678/sink/test/hello/world", sinkResponse.url)
+			assertNull(sinkResponse.authHeader)
 		}
 	}
 
