@@ -43,5 +43,5 @@ spec:
   env:
     - name: NORG2_URL
       value: https://app.adeo.no/norg2
-    - name: AXSYS_URL
-      value: https://axsys.intern.nav.no
+    - name: VEILARBARENA_URL
+      value: https://veilarbarena.intern.nav.no
