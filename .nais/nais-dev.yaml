@@ -47,6 +47,6 @@ spec:
       value: https://veilarbarena.dev.intern.nav.no
     - name: DKIF_URL
       value: https://dkif.dev.intern.nav.no
-    - name: ORDS_URL
+    - name: AMT_ARENA_ORDS_PROXY_URL
       value: https://amt-arena-ords-proxy.dev.intern.nav.no
 
