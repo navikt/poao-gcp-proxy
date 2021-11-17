@@ -41,6 +41,8 @@ spec:
           namespace: amt
           cluster: dev-gcp
   env:
+    - name: VEILARBOPPFOLGING_URL
+      value: http://veilarboppfolging.pto.svc.nais.local/veilarboppfolging
     - name: NORG2_URL
       value: https://app-q1.adeo.no/norg2
     - name: VEILARBARENA_URL
