@@ -45,3 +45,5 @@ spec:
       value: https://app.adeo.no/norg2
     - name: VEILARBARENA_URL
       value: https://veilarbarena.intern.nav.no
+    - name: DKIF_URL
+      value: https://dkif.intern.nav.no
