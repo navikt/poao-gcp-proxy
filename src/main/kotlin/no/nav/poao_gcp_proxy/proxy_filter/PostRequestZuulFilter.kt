@@ -20,7 +20,7 @@ class PostRequestZuulFilter : ZuulFilter() {
 		val request = ctx.request
 		val response = ctx.response
 
-		log.info("Proxy response: method=${request.method} fromUrl=${request.requestURL} toEndpoint=${ctx.routeHost} status=${response.status}")
+		log.info("Proxy response: status=${response.status}method=${request.method} fromUrl=${request.requestURL} toEndpoint=${ctx.routeHost}")
 
 		return null
 	}
