@@ -8,6 +8,7 @@ import no.nav.poao_gcp_proxy.token_provider.ScopedTokenProvider
 import no.nav.poao_gcp_proxy.utils.UrlUtils
 import no.nav.security.token.support.core.http.HttpRequest
 import no.nav.security.token.support.core.validation.JwtTokenValidationHandler
+import org.slf4j.LoggerFactory
 
 class PreRequestZuulFilter(
 	private val contextPath: String,
@@ -16,9 +17,13 @@ class PreRequestZuulFilter(
 	private val jwtTokenValidationHandler: JwtTokenValidationHandler
 ) : ZuulFilter() {
 
-	override fun shouldFilter(): Boolean {
-		return true
-	}
+	private val log = LoggerFactory.getLogger(this::class.java)
+
+	override fun shouldFilter() = true
+
+	override fun filterType() = "pre"
+
+	override fun filterOrder() = 1
 
 	override fun run(): Any? {
 		val ctx = RequestContext.getCurrentContext()
@@ -49,6 +54,7 @@ class PreRequestZuulFilter(
 		})
 
 		if (!tokens.hasValidToken()) {
+			log.warn("Request is not authenticated")
 			throw ZuulException("Request is not authenticated", 401, "Token is missing or invalid")
 		}
 
@@ -57,6 +63,8 @@ class PreRequestZuulFilter(
 
 		val proxy = proxyConfig.proxies.find { it.appName == appName }
 			?: throw ZuulException("Proxy Mapping Not Found", 404, "This endpoint is not a proxy")
+
+		log.info("Proxying request: method=${request.method} fromUrl=${request.requestURL} toApp=${proxy.appName}")
 
 		if (!proxy.public) {
 			// TODO: Basert på hvilket token som kommer inn, så burde vi lage nytt token å sende videre
@@ -71,14 +79,6 @@ class PreRequestZuulFilter(
 		}
 
 		return null
-	}
-
-	override fun filterType(): String {
-		return "pre"
-	}
-
-	override fun filterOrder(): Int {
-		return 1
 	}
 
 	private fun createScope(appCluster: String, appNamespace: String, appName: String): String {

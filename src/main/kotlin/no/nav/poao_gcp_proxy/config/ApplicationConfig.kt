@@ -1,5 +1,6 @@
 package no.nav.poao_gcp_proxy.config
 
+import no.nav.poao_gcp_proxy.proxy_filter.PostRequestZuulFilter
 import no.nav.poao_gcp_proxy.proxy_filter.PreRequestZuulFilter
 import no.nav.poao_gcp_proxy.token_provider.ScopedTokenProvider
 import no.nav.poao_gcp_proxy.token_provider.azure_ad.AzureAdScopedTokenProviderBuilder
@@ -33,6 +34,11 @@ class ApplicationConfig {
 		jwtTokenValidationHandler: JwtTokenValidationHandler
 	): PreRequestZuulFilter {
 		return PreRequestZuulFilter("/proxy", proxyConfig, scopedTokenProvider, jwtTokenValidationHandler)
+	}
+
+	@Bean
+	fun postRequestZuulFilter(): PostRequestZuulFilter {
+		return PostRequestZuulFilter()
 	}
 
 	@Bean
