@@ -40,6 +40,9 @@ spec:
         - application: amt-tiltak
           namespace: amt
           cluster: dev-gcp
+        - application: amt-arena-acl
+          namespace: amt
+          cluster: dev-gcp
   env:
     - name: VEILARBOPPFOLGING_URL
       value: http://veilarboppfolging.pto.svc.nais.local/veilarboppfolging

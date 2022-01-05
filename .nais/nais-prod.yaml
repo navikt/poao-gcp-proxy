@@ -37,7 +37,7 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: amt-tiltak
+        - application: amt-arena-acl
           namespace: amt
           cluster: prod-gcp
   env:
