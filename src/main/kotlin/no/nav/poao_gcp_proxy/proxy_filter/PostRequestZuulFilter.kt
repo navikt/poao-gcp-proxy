@@ -16,11 +16,10 @@ class PostRequestZuulFilter : ZuulFilter() {
 
 	override fun run(): Any? {
 		val ctx = RequestContext.getCurrentContext()
-
 		val request = ctx.request
 		val response = ctx.response
 
-		log.info("Proxy response: status=${response.status}method=${request.method} fromUrl=${request.requestURL} toEndpoint=${ctx.routeHost}")
+		log.info("Proxy response: status=${response.status} method=${request.method} fromUrl=${request.requestURL} toEndpoint=${ctx.routeHost}")
 
 		return null
 	}
