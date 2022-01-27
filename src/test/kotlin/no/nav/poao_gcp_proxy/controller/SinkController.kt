@@ -17,14 +17,16 @@ class SinkController {
 		return SinkResponse(
 			method = httpRequest.method,
 			url = httpRequest.requestURL.toString(),
-			authHeader = httpRequest.getHeader("Authorization")
+			authHeader = httpRequest.getHeader("Authorization"),
+			downstreamAuthHeader = httpRequest.getHeader("Downstream-Authorization")
 		)
 	}
 
 	data class SinkResponse(
 		val method: String,
 		val url: String,
-		val authHeader: String?
+		val authHeader: String?,
+		val downstreamAuthHeader: String?
 	)
 
 }
