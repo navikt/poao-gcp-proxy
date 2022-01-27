@@ -50,8 +50,6 @@ spec:
       value: https://app-q1.adeo.no/norg2
     - name: VEILARBARENA_URL
       value: https://veilarbarena.dev.intern.nav.no
-    - name: DKIF_URL
-      value: https://dkif.dev.intern.nav.no
     - name: AMT_ARENA_ORDS_PROXY_URL
       value: https://amt-arena-ords-proxy.dev.intern.nav.no
 
