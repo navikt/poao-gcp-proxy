@@ -4,10 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import no.nav.poao_gcp_proxy.config.TestApplicationConfig.Companion.mockOAuth2Server
 import no.nav.poao_gcp_proxy.controller.SinkController
-import no.nav.security.mock.oauth2.MockOAuth2Server
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -48,12 +46,14 @@ class PreRequestZuulFilterTest {
 	}
 
 	@Test
-	fun `should proxy request to sink with authorization header`() {
+	fun `should proxy request to sink with downstream authorization header`() {
 		val token = mockOAuth2Server.issueToken("azuread", "test", "test").serialize()
+		val downstreamToken = "some_token"
 
 		val request = Request.Builder()
 			.url("http://localhost:5678/proxy/test-app/test/hello/world?foo=bar")
 			.header("Authorization", "Bearer $token")
+			.header("Downstream-Authorization", "Bearer $downstreamToken")
 			.get()
 			.build()
 
@@ -65,19 +65,8 @@ class PreRequestZuulFilterTest {
 
 			assertEquals("GET", sinkResponse.method)
 			assertEquals("http://localhost:5678/sink/test/hello/world", sinkResponse.url)
-			assertEquals("Bearer SCOPED_TOKEN", sinkResponse.authHeader)
-		}
-	}
-
-	@Test
-	fun `should validate token for incoming requests to public proxy endpoints`() {
-		val request = Request.Builder()
-			.url("http://localhost:5678/proxy/public-app/test/hello/world?foo=bar")
-			.get()
-			.build()
-
-		client.newCall(request).execute().use { response ->
-			assertEquals(401, response.code)
+			assertEquals("Bearer some_token", sinkResponse.authHeader)
+			assertNull(sinkResponse.downstreamAuthHeader)
 		}
 	}
 
