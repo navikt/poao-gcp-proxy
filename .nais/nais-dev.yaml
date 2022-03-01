@@ -56,5 +56,5 @@ spec:
     - name: AMT_ARENA_ORDS_PROXY_URL
       value: https://amt-arena-ords-proxy.dev.intern.nav.no
     - name: VEILARBAKTIVITET_URL
-      value: http://app.dev.adeo.no/veilarbaktivitet
+      value: http://veilarbaktivitet.pto.svc.nais.local/veilarbaktivitet
 
