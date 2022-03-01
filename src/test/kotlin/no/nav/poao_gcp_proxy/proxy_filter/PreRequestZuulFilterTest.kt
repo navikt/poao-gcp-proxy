@@ -22,6 +22,7 @@ class PreRequestZuulFilterTest {
 	fun `should receive 401 as response if token is missing`() {
 		val request = Request.Builder()
 			.url("http://localhost:5678/proxy/test-app/test/hello/world?foo=bar")
+			.header("Nav-Consumer-Id", "test")
 			.get()
 			.build()
 
@@ -37,11 +38,27 @@ class PreRequestZuulFilterTest {
 		val request = Request.Builder()
 			.url("http://localhost:5678/proxy/test-app/test/hello/world?foo=bar")
 			.header("Authorization", "Bearer $token")
+			.header("Nav-Consumer-Id", "test")
 			.get()
 			.build()
 
 		client.newCall(request).execute().use { response ->
 			assertEquals(200, response.code)
+		}
+	}
+
+	@Test
+	fun `should receive 400 as response if consumer id is missing`() {
+		val token = mockOAuth2Server.issueToken("azuread", "test", "test").serialize()
+
+		val request = Request.Builder()
+			.url("http://localhost:5678/proxy/test-app/test/hello/world?foo=bar")
+			.header("Authorization", "Bearer $token")
+			.get()
+			.build()
+
+		client.newCall(request).execute().use { response ->
+			assertEquals(400, response.code)
 		}
 	}
 
@@ -54,6 +71,7 @@ class PreRequestZuulFilterTest {
 			.url("http://localhost:5678/proxy/test-app/test/hello/world?foo=bar")
 			.header("Authorization", "Bearer $token")
 			.header("Downstream-Authorization", "Bearer $downstreamToken")
+			.header("Nav-Consumer-Id", "test")
 			.get()
 			.build()
 
@@ -77,6 +95,7 @@ class PreRequestZuulFilterTest {
 		val request = Request.Builder()
 			.url("http://localhost:5678/proxy/public-app/test/hello/world?foo=bar")
 			.header("Authorization", "Bearer $token")
+			.header("Nav-Consumer-Id", "test")
 			.get()
 			.build()
 
