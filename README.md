@@ -1,6 +1,6 @@
 # POAO GCP Proxy
 
-Proxy som gjør det mulig å kontakte tjeneste i FSS fra GCP.
+Proxy som gjør det mulig å kontakte tjenester i FSS fra GCP.
 
 ## Routes
 
@@ -18,7 +18,7 @@ accessPolicy:
       rules:
         - application: my-application
           namespace: ny-namespace
-          cluster: dev-fss | prod-fss
+          cluster: dev-gcp | prod-gcp
 ```
 
 2. Gjør et request til proxyen. I `Authorization`-headeren så må det ligge et Azure AD token scopet til poao-gcp-proxy. 
