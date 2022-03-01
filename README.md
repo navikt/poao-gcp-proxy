@@ -25,6 +25,7 @@ accessPolicy:
 2. Gjør et request til proxyen. I `Authorization`-headeren så må det ligge et Azure AD system-til-system token scopet til poao-gcp-proxy. 
     Hvis downstream applikasjonen krever autentisering så må det også legges med en ekstra header `Downstream-Authorization` 
     som vil bli sendt videre som `Authorization` til downstream applikasjonen. `Downstream-Authorization` blir ikke validert av poao-gcp-proxy.
+    Det er også påkrevd at `Nav-Consumer-Id`-headeren legges på requests til poao-gcp-proxy.
 
 For eksempel så vil et request til veilarboppfolging gjennom proxyen se slik ut:
 
@@ -33,12 +34,14 @@ For eksempel så vil et request til veilarboppfolging gjennom proxyen se slik ut
 GET /proxy/veilarboppfolging/api/v2/oppfolging
 Authorization: Bearer <token til poao-gcp-proxy>
 Downstream-Authorization: Bearer <token til veilarboppfolging>
+Nav-Consumer-Id: my-application
 ```
 --->
 ```
 # Dette blir sendt fra proxyen til veilarboppfolging
 GET /veilarboppfolging/api/v2/oppfolging
 Authorization: Bearer <token til veilarboppfolging>
+Nav-Consumer-Id: my-application
 ```
 
 ## Hvordan legge til et nytt proxy endepunkt
