@@ -22,9 +22,9 @@ accessPolicy:
           cluster: dev-gcp | prod-gcp
 ```
 
-2. Gjør et request til proxyen. I `Authorization`-headeren så må det ligge et Azure AD token scopet til poao-gcp-proxy. 
+2. Gjør et request til proxyen. I `Authorization`-headeren så må det ligge et Azure AD system-til-system token scopet til poao-gcp-proxy. 
     Hvis downstream applikasjonen krever autentisering så må det også legges med en ekstra header `Downstream-Authorization` 
-    som vil bli sendt videre som `Authorization` til downstream applikasjonen.
+    som vil bli sendt videre som `Authorization` til downstream applikasjonen. `Downstream-Authorization` blir ikke validert av poao-gcp-proxy.
 
 For eksempel så vil et request til veilarboppfolging gjennom proxyen se slik ut:
 
