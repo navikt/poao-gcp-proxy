@@ -8,6 +8,7 @@ Proxy som gjør det mulig å kontakte tjenester i FSS fra GCP.
 * /proxy/norg2/**
 * /proxy/veilarbarena/**
 * /proxy/amt-arena-ords-proxy/**
+* /proxy/veilarbaktivitet/**
 
 ## Hvordan ta i bruk
 
