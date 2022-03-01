@@ -38,7 +38,7 @@ class LocalApplicationConfig {
 		val registration = FilterRegistrationBean<ConsumerIdComplianceFilter>()
 		registration.filter = ConsumerIdComplianceFilter(true)
 		registration.order = 0
-		registration.addUrlPatterns("/*")
+		registration.addUrlPatterns("/proxy/*")
 		return registration
 	}
 
