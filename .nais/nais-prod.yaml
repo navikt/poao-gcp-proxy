@@ -43,6 +43,9 @@ spec:
         - application: amt-arena-acl
           namespace: amt
           cluster: prod-gcp
+        - application: veilarbapi
+          namespace: pto
+          cluster: prod-gcp
   env:
     - name: VEILARBOPPFOLGING_URL
       value: http://veilarboppfolging.pto.svc.nais.local/veilarboppfolging
@@ -52,3 +55,7 @@ spec:
       value: https://veilarbarena.intern.nav.no/veilarbarena
     - name: AMT_ARENA_ORDS_PROXY_URL
       value: https://amt-arena-ords-proxy.intern.nav.no
+    - name: VEILARBAKTIVITET_URL
+      value: http://veilarbaktivitet.pto.svc.nais.local/veilarbaktivitet
+    - name: VEILARBDIALOG_URL
+      value: http://veilarbdialog.pto.svc.nais.local/veilarbaktivitet
