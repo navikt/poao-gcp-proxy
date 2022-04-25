@@ -59,4 +59,6 @@ spec:
       value: http://veilarbaktivitet.pto.svc.nais.local/veilarbaktivitet
     - name: VEILARBDIALOG_URL
       value: http://veilarbdialog.pto.svc.nais.local/veilarbdialog
+    - name: AXSYS_URL
+      value: https://axsys.dev.intern.nav.no
 

@@ -10,7 +10,8 @@ Proxy som gjør det mulig å kontakte tjenester i FSS fra GCP.
 * /proxy/amt-arena-ords-proxy/**
 * /proxy/veilarbaktivitet/**
 * /proxy/veilarbdialog/**
-
+* /proxy/axsys/**
+* 
 ## Hvordan ta i bruk
 
 1. Legg til applikasjonen som skal bruke proxyen i whitelisten
