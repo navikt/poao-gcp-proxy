@@ -46,6 +46,9 @@ spec:
         - application: veilarbapi
           namespace: pto
           cluster: dev-gcp
+        - application: mulighetsrommet-api
+          namespace: team-mulighetsrommet
+          cluster: dev-gcp
   env:
     - name: VEILARBOPPFOLGING_URL
       value: http://veilarboppfolging.pto.svc.nais.local/veilarboppfolging
