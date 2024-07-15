@@ -55,7 +55,7 @@ spec:
     - name: NORG2_URL
       value: https://app-q1.adeo.no/norg2
     - name: VEILARBARENA_URL
-      value: https://veilarbarena.dev.intern.nav.no/veilarbarena
+      value: https://veilarbarena.intern.dev.nav.no/veilarbarena
     - name: AMT_ARENA_ORDS_PROXY_URL
       value: https://amt-arena-ords-proxy.dev.intern.nav.no
     - name: VEILARBAKTIVITET_URL
