@@ -2,6 +2,8 @@
 
 Proxy som gjør det mulig å kontakte tjenester i FSS fra GCP.
 
+Arkivert 4.desember 2025 da denne funksjonaliteten ikke lenger er i bruk og ikke lenger nødvendig
+
 ## Routes
 
 * /proxy/veilarboppfolging/**
